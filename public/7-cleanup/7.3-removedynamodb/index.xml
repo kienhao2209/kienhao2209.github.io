@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Delete DynamoDB on AWS System Manager</title>
-    <link>//localhost:1313/7-cleanup/7.3-removedynamodb/</link>
+    <link>/7-cleanup/7.3-removedynamodb/</link>
     <description>Recent content in Delete DynamoDB on AWS System Manager</description>
     <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="//localhost:1313/7-cleanup/7.3-removedynamodb/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="/7-cleanup/7.3-removedynamodb/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
