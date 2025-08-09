@@ -13,7 +13,7 @@ pre: " <b> 6 </b> "
 
 #### Step 1: Download the Source Code
 
--   Click [Tải xuống source code](/react-ai-invoice-scanner.zip).
+-   Click [Download the Source Code](https://drive.google.com/uc?export=download&id=1pbOd59G4p2Z0K4T2nTDBZAqTRO1Ghksi).
 -   Extract the downloaded zip file.
 
 #### Step 2: Update API Endpoint

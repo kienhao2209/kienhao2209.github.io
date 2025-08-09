@@ -17,11 +17,11 @@ Trong bước này, bạn sẽ thực hiện kiểm thử Lambda Function **Fetc
 
 1.  Truy cập **AWS Lambda Console**.
 
-    ![Open Lambda Console](/images/3.lambdafunctions/3.5-testfetch/001-openlambda.png)
+![Open Lambda Console](/images/3.lambdafunctions/3.5-testfetch/001-openlambda.png)
 
 2.  Chọn function **FetchInvoiceDetailsFunction**.
 
-    ![Lambda Function](/images/3.lambdafunctions/3.5-testfetch/002-selectfunction.png)
+![Lambda Function](/images/3.lambdafunctions/3.5-testfetch/002-selectfunction.png)
 
 3.  Chuyển sang tab **Test**.
 
@@ -30,7 +30,7 @@ Trong bước này, bạn sẽ thực hiện kiểm thử Lambda Function **Fetc
     -   **Event name**: `TestGetInvoice`
     -   **Template**: Hello World
 
-    ![Test event](/images/3.lambdafunctions/3.5-testfetch/004-createevent.png)
+![Test event](/images/3.lambdafunctions/3.5-testfetch/004-createevent.png)
 
 5.  Dán nội dung JSON sau vào phần event:
 
@@ -50,7 +50,7 @@ Trong bước này, bạn sẽ thực hiện kiểm thử Lambda Function **Fetc
 
 1. Cuộn lên và nhấn **Save**.
 
-    ![Save](/images/3.lambdafunctions/3.5-testfetch/006-saveevent.png)
+![Save](/images/3.lambdafunctions/3.5-testfetch/006-saveevent.png)
 
 ---
 
@@ -58,10 +58,10 @@ Trong bước này, bạn sẽ thực hiện kiểm thử Lambda Function **Fetc
 
 1.  Sau khi tạo xong Test Event, nhấn nút **Test** để chạy.
 
-    ![Test](/images/3.lambdafunctions/3.5-testfetch/007-test.png)
+![Test](/images/3.lambdafunctions/3.5-testfetch/007-test.png)
 
 2.  Quan sát phần **Execution results** được hiển thị sau khi chạy:
 
     -   Nếu chạy thành công, bạn sẽ thấy dòng: **Status: succeeded** cùng với log output hiển thị nội dung xử lý.
 
-    ![Execution results](/images/3.lambdafunctions/3.5-testfetch/008-executionresult.png)
+![Execution results](/images/3.lambdafunctions/3.5-testfetch/008-executionresult.png)
