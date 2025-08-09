@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html lang="vi" class="js csstransforms3d">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.142.0">
+    <meta name="description" content="">
+<meta name="author" content="journeyoftheaverageguy@gmail.com">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Tạo Lambda Function #1 :: AWS System Manager</title>
+
+    
+    <link href="/css/nucleus.css?1754730792" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1754730792" rel="stylesheet">
+    <link href="/css/hybrid.css?1754730792" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1754730792" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1754730792" rel="stylesheet">
+    <link href="/css/auto-complete.css?1754730792" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1754730792" rel="stylesheet">
+    <link href="/css/theme.css?1754730792" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1754730792" rel="stylesheet">
+    
+    <link href="/css/theme-workshop.css?1754730792" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1754730792"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/vi/3-aipoweredinvoiceprocessing/3.2-createlambdafunction-upload/">
+    <nav
+  id="sidebar"
+  class="showVisitedLinks"
+>
+   
+  <div id="header-wrapper">
+    <div id="header"><a id="logo" href="/">
+
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff;}.cls-2{fill:#f90;fill-rule:evenodd;}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09,10.85a4.7,4.7,0,0,0,.19,1.48,7.73,7.73,0,0,0,.54,1.19.77.77,0,0,1,.12.38.64.64,0,0,1-.32.49l-1,.7a.83.83,0,0,1-.44.15.69.69,0,0,1-.49-.23,3.8,3.8,0,0,1-.6-.77q-.25-.42-.51-1a6.14,6.14,0,0,1-4.89,2.3,4.54,4.54,0,0,1-3.32-1.19,4.27,4.27,0,0,1-1.22-3.2A4.28,4.28,0,0,1,3.61,7.75,6.06,6.06,0,0,1,7.69,6.46a12.47,12.47,0,0,1,1.76.13q.92.13,1.91.36V5.73a3.65,3.65,0,0,0-.79-2.66A3.81,3.81,0,0,0,7.86,2.3a7.71,7.71,0,0,0-1.79.22,12.78,12.78,0,0,0-1.79.57,4.55,4.55,0,0,1-.58.22l-.26,0q-.35,0-.35-.52V2a1.09,1.09,0,0,1,.12-.58,1.2,1.2,0,0,1,.47-.35A10.88,10.88,0,0,1,5.77.32,10.19,10.19,0,0,1,8.36,0a6,6,0,0,1,4.35,1.35,5.49,5.49,0,0,1,1.38,4.09ZM7.34,13.38a5.36,5.36,0,0,0,1.72-.31A3.63,3.63,0,0,0,10.63,12,2.62,2.62,0,0,0,11.19,11a5.63,5.63,0,0,0,.16-1.44v-.7a14.35,14.35,0,0,0-1.53-.28,12.37,12.37,0,0,0-1.56-.1,3.84,3.84,0,0,0-2.47.67A2.34,2.34,0,0,0,5,11a2.35,2.35,0,0,0,.61,1.76A2.4,2.4,0,0,0,7.34,13.38Zm13.35,1.8a1,1,0,0,1-.64-.16,1.3,1.3,0,0,1-.35-.65L15.81,1.51a3,3,0,0,1-.15-.67.36.36,0,0,1,.41-.41H17.7a1,1,0,0,1,.65.16,1.4,1.4,0,0,1,.33.65l2.79,11,2.59-11A1.17,1.17,0,0,1,24.39.6a1.1,1.1,0,0,1,.67-.16H26.4a1.1,1.1,0,0,1,.67.16,1.17,1.17,0,0,1,.32.65L30,12.39,32.88,1.25A1.39,1.39,0,0,1,33.22.6a1,1,0,0,1,.65-.16h1.54a.36.36,0,0,1,.41.41,1.36,1.36,0,0,1,0,.26,3.64,3.64,0,0,1-.12.41l-4,12.86a1.3,1.3,0,0,1-.35.65,1,1,0,0,1-.64.16H29.25a1,1,0,0,1-.67-.17,1.26,1.26,0,0,1-.32-.67L25.67,3.64,23.11,14.34a1.26,1.26,0,0,1-.32.67,1,1,0,0,1-.67.17Zm21.36.44a11.28,11.28,0,0,1-2.56-.29,7.44,7.44,0,0,1-1.92-.67,1,1,0,0,1-.61-.93v-.84q0-.52.38-.52a.9.9,0,0,1,.31.06l.42.17a8.77,8.77,0,0,0,1.83.58,9.78,9.78,0,0,0,2,.2,4.48,4.48,0,0,0,2.43-.55,1.76,1.76,0,0,0,.86-1.57,1.61,1.61,0,0,0-.45-1.16A4.29,4.29,0,0,0,43,9.22l-2.41-.76A5.15,5.15,0,0,1,38,6.78a3.94,3.94,0,0,1-.83-2.41,3.7,3.7,0,0,1,.45-1.85,4.47,4.47,0,0,1,1.19-1.37A5.27,5.27,0,0,1,40.51.29,7.4,7.4,0,0,1,42.6,0a8.87,8.87,0,0,1,1.12.07q.57.07,1.08.19t.95.26a4.27,4.27,0,0,1,.7.29,1.59,1.59,0,0,1,.49.41.94.94,0,0,1,.15.55v.79q0,.52-.38.52a1.76,1.76,0,0,1-.64-.2,7.74,7.74,0,0,0-3.2-.64,4.37,4.37,0,0,0-2.21.47,1.6,1.6,0,0,0-.79,1.48,1.58,1.58,0,0,0,.49,1.18,4.94,4.94,0,0,0,1.83.92L44.55,7a5.08,5.08,0,0,1,2.57,1.6A3.76,3.76,0,0,1,47.9,11a4.21,4.21,0,0,1-.44,1.93,4.4,4.4,0,0,1-1.21,1.47,5.43,5.43,0,0,1-1.85.93A8.25,8.25,0,0,1,42.05,15.62Z"></path><path class="cls-2" d="M45.19,23.81C39.72,27.85,31.78,30,25,30A36.64,36.64,0,0,1,.22,20.57c-.51-.46-.06-1.09.56-.74A49.78,49.78,0,0,0,25.53,26.4,49.23,49.23,0,0,0,44.4,22.53C45.32,22.14,46.1,23.14,45.19,23.81Z"></path><path class="cls-2" d="M47.47,21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74,3.13-2.2,8.27-1.57,8.86-.83s-.16,5.89-3.09,8.35c-.45.38-.88.18-.68-.32C46.69,25.8,48.17,22.11,47.47,21.21Z"></path></svg>
+
+</a>
+</div>
+     <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1754730792"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1754730792"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/\/localhost:1313\/\/vi";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1754730792"></script>
+ 
+  </div>
+
+  <div class="highlightable">
+    <ul class="topics">
+               
+<li
+  data-nav-id="/vi/1-introduce/"
+  title="Giới thiệu"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/1-introduce/">
+     <b> 1. </b> Giới thiệu 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/vi/2-environmentsetup/"
+  title="Chuẩn bị môi trường"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/">
+     <b> 2. </b> Chuẩn bị môi trường 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/2-environmentsetup/2.1-createpolicy/"
+  title="Tạo IAM Policies"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/2.1-createpolicy/">
+     <b> 2.1 </b> Tạo IAM Policies 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/2-environmentsetup/2.2-createiamuserandattachpolicy/"
+  title="Tạo IAM User và cấp quyền"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/2.2-createiamuserandattachpolicy/">
+     <b> 2.2 </b> Tạo IAM User và cấp quyền 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/2-environmentsetup/2.3-loginwithiamuser/"
+  title="Đăng nhập IAM User"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/2.3-loginwithiamuser/">
+     <b> 2.3 </b> Đăng nhập IAM User 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/2-environmentsetup/2.4-creates3bucketforinvoices/"
+  title="Tạo S3 Bucket"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/2.4-creates3bucketforinvoices/">
+     <b> 2.4 </b> Tạo S3 Bucket 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/2-environmentsetup/2.5-createdynamodbtableforinvoices/"
+  title="Tạo DynamoDB Table"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/2.5-createdynamodbtableforinvoices/">
+     <b> 2.5 </b> Tạo DynamoDB Table 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/2-environmentsetup/2.6-requestnovaproaccess/"
+  title="Kích hoạt Nova Pro"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/2-environmentsetup/2.6-requestnovaproaccess/">
+     <b> 2.6 </b> Kích hoạt Nova Pro 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/3-aipoweredinvoiceprocessing/"
+  title="Xử lý Hóa Đơn bằng AI"
+  class="dd-item 
+        parent
+        
+        
+        "
+>
+  <a href="/vi/3-aipoweredinvoiceprocessing/">
+     <b> 3. </b> Xử lý Hóa Đơn bằng AI 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/3-aipoweredinvoiceprocessing/3.1-createlambdarole/"
+  title="Tạo IAM Role cho Lambda"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/3-aipoweredinvoiceprocessing/3.1-createlambdarole/">
+     <b> 3.1 </b> Tạo IAM Role cho Lambda 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-aipoweredinvoiceprocessing/3.2-createlambdafunction-upload/"
+  title="Tạo Lambda Function #1"
+  class="dd-item 
+        
+        active
+        
+        "
+>
+  <a href="/vi/3-aipoweredinvoiceprocessing/3.2-createlambdafunction-upload/">
+     <b> 3.2 </b> Tạo Lambda Function #1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-aipoweredinvoiceprocessing/3.3-testlambdafunction-upload/"
+  title="Kiểm thử Lambda Function #1"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/3-aipoweredinvoiceprocessing/3.3-testlambdafunction-upload/">
+     <b> 3.3 </b> Kiểm thử Lambda Function #1 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-aipoweredinvoiceprocessing/3.4-createlambdafunction-fetch/"
+  title="Tạo Lambda Function #2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/3-aipoweredinvoiceprocessing/3.4-createlambdafunction-fetch/">
+     <b> 3.4 </b> Tạo Lambda Function #2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/3-aipoweredinvoiceprocessing/3.5-testlambdafunction-fetch/"
+  title="Kiểm thử Lambda Function #2"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/3-aipoweredinvoiceprocessing/3.5-testlambdafunction-fetch/">
+     <b> 3.5 </b> Kiểm thử Lambda Function #2 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/4-deployingapigateway/"
+  title="Triển khai API Gateway"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/4-deployingapigateway/">
+     <b> 4. </b> Triển khai API Gateway 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/4-deployingapigateway/4.1-creategetapigateway/"
+  title="Tạo API Gateway (GET)"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/4-deployingapigateway/4.1-creategetapigateway/">
+     <b> 4.1 </b> Tạo API Gateway (GET) 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/4-deployingapigateway/4.2-createpostapigateway/"
+  title="Tạo API Gateway (POST)"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/4-deployingapigateway/4.2-createpostapigateway/">
+     <b> 4.2 </b> Tạo API Gateway (POST) 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/5-testwithpostman/"
+  title="Kiểm thử với Postman"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/">
+     <b> 5. </b> Kiểm thử với Postman 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.1-testuploadfile/"
+  title="Kiểm thử tải tệp hóa đơn"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.1-testuploadfile/">
+     <b> 5.1 </b> Kiểm thử tải tệp hóa đơn 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.2-testgetallinvoices/"
+  title="Kiểm thử lấy tất cả hóa đơn"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.2-testgetallinvoices/">
+     <b> 5.2 </b> Kiểm thử lấy tất cả hóa đơn 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.3-testgetinvoiceid/"
+  title="Kiểm thử lấy invoice theo ID"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.3-testgetinvoiceid/">
+     <b> 5.3 </b> Kiểm thử lấy invoice theo ID 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.4-testgetinvoicesstarred/"
+  title="Kiểm thử lấy danh sách hóa đơn đánh dấu"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.4-testgetinvoicesstarred/">
+     <b> 5.4 </b> Kiểm thử lấy danh sách hóa đơn đánh dấu 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.5-testupdatestatusstarred/"
+  title="Kiểm thử cập nhật trạng thái đánh dấu hóa đơn"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.5-testupdatestatusstarred/">
+     <b> 5.5 </b> Kiểm thử cập nhật trạng thái đánh dấu hóa đơn 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.6-testupdatetags/"
+  title="Kiểm thử cập nhật danh mục hóa đơn"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.6-testupdatetags/">
+     <b> 5.6 </b> Kiểm thử cập nhật danh mục hóa đơn 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/5-testwithpostman/5.7-testgetinvoicebyname/"
+  title="Kiểm thử lấy hóa đơn theo tên khách hàng"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/5-testwithpostman/5.7-testgetinvoicebyname/">
+     <b> 5.7 </b> Kiểm thử lấy hóa đơn theo tên khách hàng 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+           
+<li
+  data-nav-id="/vi/6-deployingfrontend/"
+  title="Triển khai Frontend"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/6-deployingfrontend/">
+     <b> 6 </b> Triển khai Frontend 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+           
+<li
+  data-nav-id="/vi/7-cleanup/"
+  title="Dọn dẹp tài nguyên"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/">
+     <b> 7. </b> Dọn dẹp tài nguyên 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+  <ul>
+          
+            
+<li
+  data-nav-id="/vi/7-cleanup/7.1-removeapigateway/"
+  title="Xóa API Gateway"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/7.1-removeapigateway/">
+    <b>7.1 </b>Xóa API Gateway 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/7-cleanup/7.2-removelambdafunction/"
+  title="Xóa Lambda Functions"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/7.2-removelambdafunction/">
+    <b>7.2 </b>Xóa Lambda Functions 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/7-cleanup/7.3-removedynamodb/"
+  title="Xóa DynamoDB"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/7.3-removedynamodb/">
+    <b>7.3 </b>Xóa DynamoDB 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/7-cleanup/7.4-removes3bucket/"
+  title="Xóa S3 Bucket"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/7.4-removes3bucket/">
+    <b>7.4 </b>Xóa S3 Bucket 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/7-cleanup/7.5-removecloudwatch/"
+  title="Xóa CloudWatch Alarms"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/7.5-removecloudwatch/">
+    <b>7.5 </b>Xóa CloudWatch Alarms 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+    
+            
+<li
+  data-nav-id="/vi/7-cleanup/7.6-removeiam/"
+  title="Xóa IAM User và Policy"
+  class="dd-item 
+        
+        
+        
+        "
+>
+  <a href="/vi/7-cleanup/7.6-removeiam/">
+    <b>7.6 </b>Xóa IAM User và Policy 
+    <i class="fas fa-check read-icon"></i>
+    
+  </a>
+   
+</li>
+     
+  </ul>
+  
+</li>
+    
+    </ul>
+
+     
+    <section id="shortcuts">
+      <h3>
+        More
+      </h3>
+      <ul>
+        
+        <li>
+          <a class="padding" href="https://www.facebook.com/groups/awsstudygroupfcj/"
+            ><i class='fab fa-facebook'></i> AWS Study Group</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+     
+    <section id="prefooter">
+      <hr />
+      <ul>
+        
+        <li>
+          <a class="padding">
+            <i class="fas fa-language fa-fw"></i>
+            <div class="select-style">
+              <select id="select-language" onchange="location = this.value;">
+                       
+                <option
+                  id="en"
+                  value="//localhost:1313/3-aipoweredinvoiceprocessing/3.2-createlambdafunction-upload/"
+                >
+                  English
+                </option>
+                            
+                <option
+                  id="vi"
+                  value="//localhost:1313/vi/3-aipoweredinvoiceprocessing/3.2-createlambdafunction-upload/"
+                  selected
+                >
+                  Tiếng Việt
+                </option>
+                   
+              </select>
+              <svg
+                version="1.1"
+                id="Capa_1"
+                xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                x="0px"
+                y="0px"
+                width="255px"
+                height="255px"
+                viewBox="0 0 255 255"
+                style="enable-background: new 0 0 255 255"
+                xml:space="preserve"
+              >
+                <g>
+                  <g id="arrow-drop-down">
+                    <polygon points="0,63.75 127.5,191.25 255,63.75 		" />
+                  </g>
+                </g>
+              </svg>
+            </div>
+          </a>
+        </li>
+         
+        <li>
+          <a class="padding" href="#" data-clear-history-toggle=""
+            ><i class="fas fa-history fa-fw"></i> Clear History</a
+          >
+        </li>
+        
+      </ul>
+    </section>
+    
+    <section id="footer"><left>
+    
+     <b> Workshop</b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7920860&style=0038&nbdigits=9&type=page&initCount=0" title="Migrate" Alt="web counter"   border="0" /></a>  <br>
+     <b> <a href="https://cloudjourney.awsstudygroup.com/">Cloud Journey</a></b> <br>
+    <img src="https://hitwebcounter.com/counter/counter.php?page=7830807&style=0038&nbdigits=9&type=page&initCount=0" title="Total CLoud Journey" Alt="web counter"   border="0"   />
+     
+</left>
+<left>
+    <br>
+    <br>
+        <b> Last Updated </b> <br>
+        <i><font color=orange>30-01-2022</font></i>
+    </left>
+    <left>
+        <br>
+        <br>
+            <b> Team </b> <br>
+           
+            <i> <a href="https://www.linkedin.com/in/sutrinh/"  style="color:orange">Sử Trịnh  </a> <br>
+                <a href="https://www.linkedin.com/in/jotaguy"  style="color:orange">Gia Hưng </a> <br>
+                <a href="https://www.linkedin.com/in/hiepnguyendt"  style="color:orange">Thanh Hiệp </a>
+               
+        </i>
+        </left>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='/vi/'>Xây dựng hệ thống quét hóa đơn AI trên kiến trúc Serverless</a> > <a href='/vi/3-aipoweredinvoiceprocessing/'>Xử lý Hóa Đơn bằng AI</a> > Tạo Lambda Function #1
+          
+        
+          
+        
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Tạo Lambda Function #1
+            </h1>
+          
+
+        
+
+
+
+	<h4 id="tổng-quan">Tổng quan</h4>
+<p>Trong bước này, bạn sẽ tạo Lambda Function đầu tiên có tên là <strong>UploadInvoiceFileFunction</strong>. Function này sẽ được kích hoạt khi người dùng tải lên một file hóa đơn vào S3 bucket. Sau đó, nó sẽ sử dụng <strong>Amazon Textract</strong> để trích xuất văn bản, <strong>Amazon Bedrock</strong> để phân tích và hiểu nội dung, cuối cùng lưu thông tin vào <strong>DynamoDB</strong>.</p>
+<hr>
+<h4 id="bước-1-truy-cập-lambda-console">Bước 1: Truy cập Lambda Console</h4>
+<ol>
+<li>Đăng nhập vào <a href="https://console.aws.amazon.com/">AWS Console</a>, tìm <strong>Lambda</strong>, sau đó chọn <strong>Lambda</strong>.</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/001-openlambda.png" alt="Open Lambda"></p>
+
+<div class="notices warning" ><p>⚠️ <strong>Lưu ý</strong>: Hãy đảm bảo bạn đang ở đúng <strong>Region: N. Virginia (us-east-1)</strong> trước khi tạo Lambda function. Đây là vùng bạn đã tạo S3 bucket, DynamoDB table và đăng ký Amazon Bedrock. Nếu chọn sai vùng, Lambda sẽ không thể truy cập được các dịch vụ khác của hệ thống.</p>
+</div>
+
+<ol start="2">
+<li>Nhấn <strong>Create function</strong>.</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/002-createfunction.png" alt="Create Function"></p>
+<h4 id="bước-2-cấu-hình-lambda-function">Bước 2: Cấu hình Lambda Function</h4>
+<ol>
+<li>
+<p>Ở mục <strong>Author from scratch</strong>, nhập các thông tin sau:</p>
+<ul>
+<li><strong>Function name</strong>: <code>UploadInvoiceFileFunction</code></li>
+<li><strong>Runtime</strong>: <code>Python 3.12</code></li>
+<li><strong>Architecture</strong>: <code>x86_64</code></li>
+<li><strong>Permissions</strong>: Chọn <strong>Use an existing role</strong></li>
+<li><strong>Existing role</strong>: <code>LambdaExecutionRole-AIInvoiceScanner</code> (đã tạo ở bước trước)</li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/003-configurefunction.png" alt="Configure Function"></p>
+<ol start="2">
+<li>Nhấn <strong>Create function</strong> để khởi tạo.</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/004-createfunction.png" alt="Configure Function"></p>
+<hr>
+<h4 id="bước-3-thêm-mã-nguồn-python">Bước 3: Thêm mã nguồn Python</h4>
+<ol>
+<li>
+<p>Sau khi function được tạo, cuộn xuống phần <strong>Code</strong> trong giao diện Lambda.</p>
+</li>
+<li>
+<p>Dán <strong>toàn bộ đoạn mã Python</strong> dưới đây vào, thay thế nội dung mặc định:</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> boto3
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> uuid
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> base64
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> re
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> time
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> decimal <span style="color:#f92672">import</span> Decimal
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># AWS clients</span>
+</span></span><span style="display:flex;"><span>s3 <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;s3&#39;</span>)
+</span></span><span style="display:flex;"><span>textract <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;textract&#39;</span>)
+</span></span><span style="display:flex;"><span>dynamodb <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>resource(<span style="color:#e6db74">&#39;dynamodb&#39;</span>)
+</span></span><span style="display:flex;"><span>bedrock <span style="color:#f92672">=</span> boto3<span style="color:#f92672">.</span>client(<span style="color:#e6db74">&#39;bedrock-runtime&#39;</span>, region_name<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;us-east-1&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Constants</span>
+</span></span><span style="display:flex;"><span>BUCKET_NAME <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;invoice-upload-s3-bucket&#39;</span>
+</span></span><span style="display:flex;"><span>table <span style="color:#f92672">=</span> dynamodb<span style="color:#f92672">.</span>Table(<span style="color:#e6db74">&#39;InvoiceData&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">decimal_default</span>(obj):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> isinstance(obj, Decimal):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> float(round(obj, <span style="color:#ae81ff">2</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">make_response</span>(status_code, body_dict):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;statusCode&#39;</span>: status_code,
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;headers&#39;</span>: {
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Access-Control-Allow-Origin&#39;</span>: <span style="color:#e6db74">&#39;*&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Access-Control-Allow-Credentials&#39;</span>: <span style="color:#66d9ef">True</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Access-Control-Allow-Headers&#39;</span>: <span style="color:#e6db74">&#39;*&#39;</span>,
+</span></span><span style="display:flex;"><span>            <span style="color:#e6db74">&#39;Access-Control-Allow-Methods&#39;</span>: <span style="color:#e6db74">&#39;OPTIONS,POST&#39;</span>
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#39;body&#39;</span>: json<span style="color:#f92672">.</span>dumps(body_dict, default<span style="color:#f92672">=</span>decimal_default)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">lambda_handler</span>(event, context):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;🔍 Incoming event:&#34;</span>)
+</span></span><span style="display:flex;"><span>    print(json<span style="color:#f92672">.</span>dumps(event))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># === CASE 1: API Gateway POST upload file ===</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#34;body&#34;</span> <span style="color:#f92672">in</span> event <span style="color:#f92672">and</span> isinstance(event[<span style="color:#e6db74">&#39;body&#39;</span>], str) <span style="color:#f92672">and</span> <span style="color:#f92672">not</span> (<span style="color:#e6db74">&#34;Records&#34;</span> <span style="color:#f92672">in</span> event):
+</span></span><span style="display:flex;"><span>            body <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(event[<span style="color:#e6db74">&#39;body&#39;</span>])
+</span></span><span style="display:flex;"><span>            file_data <span style="color:#f92672">=</span> base64<span style="color:#f92672">.</span>b64decode(body[<span style="color:#e6db74">&#39;file&#39;</span>])
+</span></span><span style="display:flex;"><span>            filename <span style="color:#f92672">=</span> body<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#39;filename&#39;</span>, <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;invoice_</span><span style="color:#e6db74">{</span>uuid<span style="color:#f92672">.</span>uuid4()<span style="color:#e6db74">}</span><span style="color:#e6db74">.png&#39;</span>)
+</span></span><span style="display:flex;"><span>            key <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;uploads/</span><span style="color:#e6db74">{</span>filename<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            s3<span style="color:#f92672">.</span>put_object(
+</span></span><span style="display:flex;"><span>                Bucket<span style="color:#f92672">=</span>BUCKET_NAME,
+</span></span><span style="display:flex;"><span>                Key<span style="color:#f92672">=</span>key,
+</span></span><span style="display:flex;"><span>                Body<span style="color:#f92672">=</span>file_data,
+</span></span><span style="display:flex;"><span>                ContentType<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;image/png&#39;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;✅ Uploaded &#39;</span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> make_response(<span style="color:#ae81ff">200</span>, {
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;Upload thành công&#39;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#39;s3_path&#39;</span>: <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;s3://</span><span style="color:#e6db74">{</span>BUCKET_NAME<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># === CASE 2: S3 Trigger xử lý hóa đơn ===</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> <span style="color:#e6db74">&#34;Records&#34;</span> <span style="color:#f92672">in</span> event <span style="color:#f92672">and</span> <span style="color:#e6db74">&#34;s3&#34;</span> <span style="color:#f92672">in</span> event[<span style="color:#e6db74">&#34;Records&#34;</span>][<span style="color:#ae81ff">0</span>]:
+</span></span><span style="display:flex;"><span>            bucket <span style="color:#f92672">=</span> event[<span style="color:#e6db74">&#39;Records&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;s3&#39;</span>][<span style="color:#e6db74">&#39;bucket&#39;</span>][<span style="color:#e6db74">&#39;name&#39;</span>]
+</span></span><span style="display:flex;"><span>            key <span style="color:#f92672">=</span> event[<span style="color:#e6db74">&#39;Records&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;s3&#39;</span>][<span style="color:#e6db74">&#39;object&#39;</span>][<span style="color:#e6db74">&#39;key&#39;</span>]
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;📥 Trigger từ S3: bucket=</span><span style="color:#e6db74">{</span>bucket<span style="color:#e6db74">}</span><span style="color:#e6db74">, key=</span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 1. Textract</span>
+</span></span><span style="display:flex;"><span>            textract_response <span style="color:#f92672">=</span> textract<span style="color:#f92672">.</span>detect_document_text(
+</span></span><span style="display:flex;"><span>                Document<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#39;S3Object&#39;</span>: {<span style="color:#e6db74">&#39;Bucket&#39;</span>: bucket, <span style="color:#e6db74">&#39;Name&#39;</span>: key}}
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            extracted_text <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39; &#39;</span><span style="color:#f92672">.</span>join(
+</span></span><span style="display:flex;"><span>                [block[<span style="color:#e6db74">&#39;Text&#39;</span>] <span style="color:#66d9ef">for</span> block <span style="color:#f92672">in</span> textract_response[<span style="color:#e6db74">&#39;Blocks&#39;</span>] <span style="color:#66d9ef">if</span> block[<span style="color:#e6db74">&#39;BlockType&#39;</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;LINE&#39;</span>]
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> len(extracted_text<span style="color:#f92672">.</span>strip()) <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">20</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span> make_response(<span style="color:#ae81ff">400</span>, {<span style="color:#e6db74">&#39;error&#39;</span>: <span style="color:#e6db74">&#39;Không phát hiện được nội dung hợp lệ từ ảnh.&#39;</span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 2. Prompt cho Bedrock</span>
+</span></span><span style="display:flex;"><span>            prompt <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;You are a precise invoice data parser. Extract structured data from the invoice text below.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;Return ONLY valid JSON with fields:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;{</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">InvoiceId</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">CustomerName</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">InvoiceDate</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">DueDate</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">PurchaseOrderNumber</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Company</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Name</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Address</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">BillTo</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Name</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Address</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">ShipTo</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Name</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Address</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">},</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Items</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: [</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;    {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Description</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Quantity</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">UnitPrice</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0.0, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Amount</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0.0}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  ],</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Subtotal</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0.0,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Tax</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Rate</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0.0, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Amount</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0.0},</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">TotalAmount</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0.0,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">Currency</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">,</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;  </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">PaymentTerms</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: {</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">DueWithinDays</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: 0, </span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">PayableTo</span><span style="color:#ae81ff">\&#34;</span><span style="color:#e6db74">: </span><span style="color:#ae81ff">\&#34;\&#34;</span><span style="color:#e6db74">}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;}</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;Rules:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;- Normalize all dates to ISO format YYYY-MM-DD.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;- If the text uses DD/MM/YYYY, convert to YYYY-MM-DD correctly.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;- Ensure numeric values are floats.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;- If a value is missing, set it to null.</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;- No explanation, no markdown, no extra text.</span><span style="color:#ae81ff">\n\n</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">f</span><span style="color:#e6db74">&#34;Invoice text:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{</span>extracted_text<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            messages <span style="color:#f92672">=</span> [{<span style="color:#e6db74">&#34;role&#34;</span>: <span style="color:#e6db74">&#34;user&#34;</span>, <span style="color:#e6db74">&#34;content&#34;</span>: [{<span style="color:#e6db74">&#34;text&#34;</span>: prompt}]}]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> bedrock<span style="color:#f92672">.</span>converse(
+</span></span><span style="display:flex;"><span>                modelId<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;amazon.nova-pro-v1:0&#34;</span>,
+</span></span><span style="display:flex;"><span>                messages<span style="color:#f92672">=</span>messages,
+</span></span><span style="display:flex;"><span>                inferenceConfig<span style="color:#f92672">=</span>{<span style="color:#e6db74">&#34;maxTokens&#34;</span>: <span style="color:#ae81ff">1024</span>, <span style="color:#e6db74">&#34;temperature&#34;</span>: <span style="color:#ae81ff">0.2</span>, <span style="color:#e6db74">&#34;topP&#34;</span>: <span style="color:#ae81ff">0.9</span>}
+</span></span><span style="display:flex;"><span>            )
+</span></span><span style="display:flex;"><span>            ai_text <span style="color:#f92672">=</span> response[<span style="color:#e6db74">&#39;output&#39;</span>][<span style="color:#e6db74">&#39;message&#39;</span>][<span style="color:#e6db74">&#39;content&#39;</span>][<span style="color:#ae81ff">0</span>][<span style="color:#e6db74">&#39;text&#39;</span>]
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;🧠 Bedrock raw output:&#34;</span>, ai_text)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 3. Parse JSON output</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">match</span> <span style="color:#f92672">=</span> re<span style="color:#f92672">.</span>search(<span style="color:#e6db74">r</span><span style="color:#e6db74">&#39;({.*})&#39;</span>, ai_text, re<span style="color:#f92672">.</span>DOTALL <span style="color:#f92672">|</span> re<span style="color:#f92672">.</span>MULTILINE)
+</span></span><span style="display:flex;"><span>                json_str <span style="color:#f92672">=</span> <span style="color:#66d9ef">match</span><span style="color:#f92672">.</span>group(<span style="color:#ae81ff">1</span>) <span style="color:#66d9ef">if</span> <span style="color:#66d9ef">match</span> <span style="color:#66d9ef">else</span> ai_text<span style="color:#f92672">.</span>strip()
+</span></span><span style="display:flex;"><span>                result_json <span style="color:#f92672">=</span> json<span style="color:#f92672">.</span>loads(json_str, parse_float<span style="color:#f92672">=</span>Decimal)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>                print(<span style="color:#e6db74">&#34;❌ Lỗi parse JSON:&#34;</span>, str(e))
+</span></span><span style="display:flex;"><span>                result_json <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;Invalid JSON&#34;</span>, <span style="color:#e6db74">&#34;raw_output&#34;</span>: ai_text}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># 4. Lưu vào DynamoDB (thêm trường Tags rỗng)</span>
+</span></span><span style="display:flex;"><span>            result_json[<span style="color:#e6db74">&#39;S3Object&#39;</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">f</span><span style="color:#e6db74">&#39;s3://</span><span style="color:#e6db74">{</span>bucket<span style="color:#e6db74">}</span><span style="color:#e6db74">/</span><span style="color:#e6db74">{</span>key<span style="color:#e6db74">}</span><span style="color:#e6db74">&#39;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;Tags&#39;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> result_json:
+</span></span><span style="display:flex;"><span>                result_json[<span style="color:#e6db74">&#39;Tags&#39;</span>] <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            table<span style="color:#f92672">.</span>put_item(Item<span style="color:#f92672">=</span>result_json)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            print(<span style="color:#e6db74">&#34;✅ Lưu vào DynamoDB thành công.&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> make_response(<span style="color:#ae81ff">200</span>, {<span style="color:#e6db74">&#39;message&#39;</span>: <span style="color:#e6db74">&#39;Xử lý thành công&#39;</span>, <span style="color:#e6db74">&#39;parsed&#39;</span>: result_json})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> make_response(<span style="color:#ae81ff">400</span>, {<span style="color:#e6db74">&#39;error&#39;</span>: <span style="color:#e6db74">&#39;Request không hợp lệ.&#39;</span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> <span style="color:#a6e22e">Exception</span> <span style="color:#66d9ef">as</span> e:
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;❌ Lỗi tổng quát:&#34;</span>, str(e))
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> make_response(<span style="color:#ae81ff">500</span>, {<span style="color:#e6db74">&#39;error&#39;</span>: str(e)})
+</span></span></code></pre></div><p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/005-sourcecode.png" alt="Paste Code"></p>
+<ol start="3">
+<li>Nhấn <strong>Deploy</strong> để áp dụng thay đổi.</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/006-deploy.png" alt="Deploy"></p>
+<hr>
+<h4 id="bước-4-cấu-hình-timeout-và-memory">Bước 4: Cấu hình Timeout và Memory</h4>
+<ol>
+<li>Vào tab <strong>Configuration &gt; General configuration</strong>.</li>
+<li>Nhấn <strong>Edit</strong>.</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/007-configuration.png" alt="Deploy"></p>
+<ol start="3">
+<li>
+<p>Thay đổi các thông số sau:</p>
+<ul>
+<li><strong>Memory (MB)</strong>: <code>1024</code></li>
+<li><strong>Timeout</strong>: <code>1 minute</code></li>
+</ul>
+</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/008-configtimeout.png" alt="Edit Memory Timeout"></p>
+<ol start="4">
+<li>Nhấn <strong>Save</strong>.</li>
+</ol>
+<p><img src="/images/3.lambdafunctions/3.2-uploadinvoicelambda/009-clicksave.png" alt="Click Save"></p>
+<hr>
+<h4 id="kết-luận">Kết luận</h4>
+<p>Bạn đã tạo thành công Lambda Function đầu tiên trong hệ thống: <strong>UploadInvoiceFileFunction</strong>.</p>
+<ul>
+<li>Function này sẽ <strong>tự động được kích hoạt</strong> mỗi khi người dùng <strong>tải lên hóa đơn</strong> vào thư mục <strong>uploads/</strong> trong S3.</li>
+<li>Nó sử dụng <strong>Amazon Textract</strong> để trích xuất văn bản từ hóa đơn.</li>
+<li>Sau đó sử dụng <strong>Amazon Bedrock Nova Pro</strong> để phân tích nội dung.</li>
+<li>Cuối cùng, dữ liệu sẽ được <strong>lưu trữ vào DynamoDB</strong> để phục vụ tra cứu và hiển thị.</li>
+</ul>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="/vi/3-aipoweredinvoiceprocessing/3.1-createlambdarole/" title="Tạo IAM Role cho Lambda"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="/vi/3-aipoweredinvoiceprocessing/3.3-testlambdafunction-upload/" title="Kiểm thử Lambda Function #1" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1754730792"></script>
+    <script src="/js/perfect-scrollbar.min.js?1754730792"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1754730792"></script>
+    <script src="/js/jquery.sticky.js?1754730792"></script>
+    <script src="/js/featherlight.min.js?1754730792"></script>
+    <script src="/js/highlight.pack.js?1754730792"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1754730792"></script>
+    <script src="/js/learn.js?1754730792"></script>
+    <script src="/js/hugo-learn.js?1754730792"></script>
+
+    <link href="/mermaid/mermaid.css?1754730792" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1754730792"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-158079754-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+  </body>
+</html>
